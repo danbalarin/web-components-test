@@ -1,0 +1,7 @@
+.navbar {
+    @apply p-4 text-white flex align-middle justify-center z-10;
+}
+
+.navbar>*:not(:last-child) {
+    @apply mr-4;
+}

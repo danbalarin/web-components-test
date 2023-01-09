@@ -1,0 +1,99 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import '../components/index.css';
+
+
+:host {
+  --mx: 50%;
+  --my: 50%;
+  --o: 0;
+  --rx: 0deg;
+  --ry: 0deg;
+  --s: 1;
+}
+
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+
+
+@media (min-width: 768px) {
+  main {
+    @apply grid-cols-2;
+  }
+}
+
+@media (min-width: 1280px) {
+  main {
+    @apply grid-cols-3;
+  }
+}
+
+body {
+  font-family: 'Balsamiq Sans', cursive;
+  background: url("https://i.pinimg.com/564x/3c/36/4e/3c364e0d605a104174b0c4e17d8d9db0.jpg") repeat;
+  height: 100vh;
+  @apply flex flex-col items-center p-4;
+}
+
+body::before {
+  content: "";
+  background: radial-gradient(circle at 50% 100%, hsla(28, 72%, 31%, 0.5), hsl(19, 56%, 16%, 0.9) 90%) no-repeat fixed;
+  @apply fixed top-0 left-0 w-full h-full -z-10;
+}
+
+main {
+  justify-self: end;
+  @apply grid justify-around h-full gap-4 mt-6 items-center;
+}
+
+main>* {
+  @apply flex justify-center items-center;
+}
+
+main character-card {
+  @apply cursor-pointer;
+}
+
+custom-button#like {
+  @apply absolute bottom-6 left-1/2 transform -translate-x-1/2;
+}
+
+.backdrop {
+  @apply fixed top-0 left-0 w-full h-full bg-whiskey-900 opacity-0 pointer-events-none;
+}
+
+no-data {
+  @apply text-6xl text-whiskey-300 font-bold col-span-3 text-center;
+}
+
+main character-card.selected {
+  @apply transform scale-125 z-10 shadow-lg;
+}
+
+#animatable {
+  --glow: 0;
+  @apply absolute
+}
+
+#animatable::before {
+  @apply absolute top-1/2 left-1/2 w-full h-full p-8 overflow-visible box-content transform -translate-x-1/2 -translate-y-1/2;
+  content: "";
+  animation: spin 10s linear infinite;
+  background-image: linear-gradient(var(--rotate), hsl(25, 89%, 51%), hsl(35, 92%, 53%));
+  opacity: var(--glow);
+  filter: blur(5rem);
+}
+
+@keyframes spin {
+  0% {
+    --rotate: 0deg;
+  }
+
+  100% {
+    --rotate: 360deg;
+  }
+}

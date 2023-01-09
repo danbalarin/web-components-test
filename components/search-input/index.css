@@ -1,0 +1,3 @@
+.search-input {
+    @apply border-whiskey-900 p-3 text-lg rounded-lg w-96 border-solid max-w-full bg-whiskey-600 bg-opacity-70 text-whiskey-900 placeholder-whiskey-900 placeholder-opacity-80 font-bold shadow-whiskey-900 shadow-inner outline-whiskey-300;
+}

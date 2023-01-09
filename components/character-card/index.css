@@ -1,0 +1,105 @@
+.card {
+    font-family: 'Balsamiq Sans', cursive;
+    aspect-ratio: 560/760;
+    @apply rounded-lg relative max-w-full inline-flex;
+    opacity: 1;
+    position: relative;
+}
+
+.card:not([data-small]),
+.card[data-small="false"] {
+    --text-name-size: 2.25rem;
+    --text-name-height: 2.5rem;
+    --text-species-size: 1.5rem;
+    --text-species-height: 2rem;
+    --text-origin-size: 1.25rem;
+    --text-origin-height: 1.75rem;
+    @apply w-96;
+}
+
+.card[data-small],
+.card[data-small="true"] {
+    --text-name-size: 1.5rem;
+    --text-name-height: 2rem;
+    --text-species-size: 1.125rem;
+    --text-species-height: 1.75rem;
+    --text-origin-size: 1rem;
+    --text-origin-height: 1.5rem;
+    @apply w-72;
+}
+
+.card-back {
+    @apply bg-cover absolute top-0 left-0 right-0 bottom-0 h-full z-30;
+    background-image: url('../images/card-back.png')
+}
+
+.card-front {
+    @apply card p-4 flex flex-col
+}
+
+.card-front.liked::before {
+    content: "";
+    @apply absolute top-1/2 left-1/2 w-full h-full p-1 box-content transform -translate-x-1/2 -translate-y-1/2 rounded-xl pointer-events-none blur-lg overflow-visible;
+    background-color: hsl(35, 92%, 53%)
+}
+
+.card-overlay {
+    @apply bg-cover absolute top-0 left-0 right-0 bottom-0 h-full z-10;
+}
+
+.card-effect {
+    @apply bg-cover absolute top-0 left-0 right-0 bottom-0 h-full z-30;
+}
+
+.card-image {
+    @apply z-0 w-full;
+}
+
+character-card img {
+    @apply card-image;
+}
+
+.card-body {
+    @apply w-full grid -mt-2 px-4 relative;
+}
+
+.card-name {
+    font-size: var(--text-name-size);
+    line-height: var(--text-name-height);
+    @apply font-bold text-whiskey-900 justify-self-center z-20 w-full text-center text-ellipsis whitespace-nowrap overflow-hidden;
+}
+
+.card-species {
+    font-size: var(--text-species-size);
+    line-height: var(--text-species-height);
+    @apply font-normal text-whiskey-900 mt-2 z-20;
+}
+
+.card-origin {
+    font-size: var(--text-origin-size);
+    line-height: var(--text-origin-height);
+    @apply text-whiskey-900 z-20 font-normal;
+}
+
+.card-gender {
+    @apply w-5 h-5 z-20 absolute;
+    bottom: 4%;
+    right: 5%;
+}
+
+.card-id {
+    @apply absolute font-bold text-whiskey-900 z-20 block text-center;
+    /* Percentage based because of scaling */
+    top: 3.75%;
+    left: 2.65%;
+    width: 10%;
+}
+
+.card.shadow {
+    @apply shadow-lg;
+}
+
+.glare {
+    background: radial-gradient(farthest-corner circle at var(--mx) var(--my), rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .1) 20%, rgba(0, 0, 0, .1) 90%);
+    mix-blend-mode: overlay;
+}
