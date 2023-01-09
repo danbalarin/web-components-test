@@ -5,9 +5,10 @@
 	"type": "module",
 	"scripts": {
 		"dev": "cross-env TAILWIND_MODE=watch vite",
-		"build": "cross-env TAILWIND_MODE=build vite build",
+		"build": "cross-env TAILWIND_MODE=build yarn styles:build && vite build",
 		"serve": "vite preview",
-		"styles": "tailwindcss --postcss -i ./styles/index.css -o ./dist/output.css --watch"
+		"styles:build": "tailwindcss --postcss -i ./styles/index.css -o ./dist/output.css",
+		"styles:watch": "tailwindcss --postcss -i ./styles/index.css -o ./dist/output.css --watch"
 	},
 	"devDependencies": {
 		"autoprefixer": "^10.4.13",

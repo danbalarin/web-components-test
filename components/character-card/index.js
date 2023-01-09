@@ -1,10 +1,14 @@
+import male from "../../images/male.svg?url";
+import female from "../../images/female.svg?url";
+import unknown from "../../images/unknown.svg?url";
+
 const templateHTML = `
 <link href="/dist/output.css" rel="stylesheet">
 <article class="card">
   <div class="card-back"></div>
   <div class="card-front rotate">
     <div class="card-effect glare"></div>
-    <div class="card-overlay" style="background-image: url('images/card-overlay.png')"></div>
+    <div class="card-overlay"></div>
     <span class="card-id">{:id}</span>
     <img src="https://rickandmortyapi.com/api/character/avatar/{:id}.jpeg" alt="{:name}" class="card-image" />
     <section class="card-body">
@@ -18,7 +22,7 @@ const templateHTML = `
         Place of origin: {:origin}
         </span>
     </section>
-    <img class="card-gender" src="images/{:gender}.svg" alt="{:trueGender}" />
+    <img class="card-gender" src="{:genderSVG}" alt="{:trueGender}" />
   </div>
 </article>
 `;
@@ -110,10 +114,10 @@ export class CharacterCard extends HTMLElement {
 		hydratedContent = hydratedContent.replace(/{:name}/g, name);
 		hydratedContent = hydratedContent.replace(/{:species}/g, species);
 		hydratedContent = hydratedContent.replace(/{:trueGender}/g, gender);
-		hydratedContent = hydratedContent.replace(
-			/{:gender}/g,
-			["male", "female"].includes(gender.toLowerCase()) ? gender : "unknown"
-		);
+		let genderIcon = unknown;
+		gender.toLowerCase() === "male" && (genderIcon = male);
+		gender.toLowerCase() === "female" && (genderIcon = female);
+		hydratedContent = hydratedContent.replace(/{:genderSVG}/g, genderIcon);
 		hydratedContent = hydratedContent.replace(/{:origin}/g, originName);
 		this.shadowRoot.innerHTML = hydratedContent;
 	}
