@@ -45,6 +45,11 @@ body::before {
   @apply fixed top-0 left-0 w-full h-full -z-10;
 }
 
+.no-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
 main {
   justify-self: end;
   @apply grid justify-around h-full gap-4 mt-6 items-center;
@@ -59,7 +64,7 @@ main character-card {
 }
 
 custom-button#like {
-  @apply absolute bottom-6 left-1/2 transform -translate-x-1/2;
+  @apply fixed bottom-6 left-1/2 transform -translate-x-1/2;
 }
 
 .backdrop {

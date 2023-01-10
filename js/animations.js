@@ -3,6 +3,7 @@ import {
 	getFromLocalStorage,
 	removeFromLocalStorage,
 } from "./store";
+import { scrollToggle } from "./utils";
 
 let selectedCard = null;
 let animatableElement = null;
@@ -49,8 +50,11 @@ const createAnimatableElement = (originalElement) => {
 	document.querySelector("main").appendChild(animatableElement);
 
 	const { top, left, width, height } = originalElement.getBoundingClientRect();
-	animatableElement.style.top = `${top}px`;
-	animatableElement.style.left = `${left}px`;
+
+	const topWithOffset = top + window.scrollY;
+	const leftWithOffset = left + window.scrollX;
+	animatableElement.style.top = `${topWithOffset}px`;
+	animatableElement.style.left = `${leftWithOffset}px`;
 	animatableElement.style.width = `${width}px`;
 	animatableElement.style.height = `${height}px`;
 
@@ -66,8 +70,13 @@ const createAnimatableElement = (originalElement) => {
 
 const animateIn = (element) => {
 	const tl = gsap.timeline();
+	const { disable } = scrollToggle();
 	const animatableElement = createAnimatableElement(element);
 	likeButton.setIsLiked(isCharacterLiked(element.character));
+	disable();
+
+	const top = window.scrollY + window.innerHeight / 2;
+
 	tl.set(element, { opacity: 0.001 });
 	tl.set(backdrop, { zIndex: 15, opacity: 0 });
 	tl.set(animatableElement, { scale: 1, zIndex: 20 });
@@ -82,7 +91,7 @@ const animateIn = (element) => {
 		{
 			"--glow": 1,
 			scale: 1.25,
-			top: "50%",
+			top,
 			left: "50%",
 			xPercent: -50,
 			yPercent: -50,
@@ -96,11 +105,15 @@ const animateIn = (element) => {
 
 const animateOut = (element) => {
 	animatableElement.stopAnimation();
+	const { enable } = scrollToggle();
+
+	const top = element.getBoundingClientRect().top + window.scrollY;
+	const left = element.getBoundingClientRect().left + window.scrollX;
 	const tl = gsap.timeline();
 	tl.to(animatableElement, {
 		scale: 1,
-		top: element.getBoundingClientRect().top,
-		left: element.getBoundingClientRect().left,
+		top,
+		left,
 		xPercent: 0,
 		yPercent: 0,
 		ease: "power1.inOut",
@@ -117,6 +130,7 @@ const animateOut = (element) => {
 	tl.to(animatableElement, { "--glow": 0 });
 	tl.to(element, { opacity: 1 });
 	tl.call(() => animatableElement.remove());
+	tl.call(() => enable());
 };
 
 export const onCardClick = (e) => {

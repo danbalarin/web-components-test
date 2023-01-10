@@ -59,7 +59,6 @@ export class CharacterCard extends HTMLElement {
 	}
 
 	setLiked(liked) {
-		console.log("setLiked", liked);
 		liked
 			? this.shadowRoot.querySelector(".card-front").classList.add("liked")
 			: this.shadowRoot.querySelector(".card-front").classList.remove("liked");
